@@ -1,0 +1,27 @@
+<h3>Carrinho</h3>
+<div *ngIf="items[0]">
+<app-button></app-button>
+</div>
+
+<div class="alert alert-primary container__responsivo" *ngFor="let item of items">
+  <img class="img__styles" src="{{item.image}}" alt="{{item.description}}">
+  <a [routerLink]="['/products', item.id]">{{ item.name }}</a>
+  <div class="container__responsivo--preco-de-envio" *ngFor="let preco of precoDeEnvio">
+    <span>Produto: {{ item.price | currency }}</span>
+      <span>Envio: {{ preco.price | currency }}</span>
+      <span>Total: {{preco.price + item.price}}</span>
+  </div>
+</div>
+
+<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+  <div class="mb-3">
+    <label for="idNome" class="form-label">Nome:</label>
+    <input type="email" class="form-control" id="idNome" formControlName="nome">
+  </div>
+  <div class="mb-3">
+    <label for="idEndereco" class="form-label">Endereço:</label>
+    <input type="text" class="form-control" id="idEndereco" formControlName="endereco">
+  </div>
+  <button class="btn btn-outline-primary" type="submit">Comprar</button>
+
+</form>

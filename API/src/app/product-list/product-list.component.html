@@ -1,0 +1,28 @@
+<h2 class="text-muted">Produtos</h2>
+  <div class="container__responsivo">
+    <div class="card" *ngFor="let product of products">
+      <img class="img-thumbnail" src="{{ product.image }}" alt="Imagem do produto">
+      <h3 class="text-primary">
+        <a [title]="product.name + ' details'" [routerLink]="['/products', product.id]">
+          {{ product.name }}
+        </a>
+      </h3>
+        <p *ngIf="product.description" class="text-muted">
+          Descrição: {{ product.description }}
+        </p>
+        <p *ngIf="!product.description" class="mt-5">
+        </p>
+        <div class="d-grid gap-2">
+          <button (click)="onShare()" class="btn btn-outline-primary">
+            Compartilhar produto
+          </button>
+          <button class="btn btn-outline-primary" [routerLink]="['/products', product.id]">
+            Ver Detalhes
+          </button>
+        </div>
+        <app-product-alerts *ngIf="product.price > 700"
+          (notify)="onNotify()"
+          [products]="products">
+        </app-product-alerts>
+    </div>
+  </div>
